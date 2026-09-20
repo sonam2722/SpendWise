@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SpendWise - Student Expense Tracker</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  
+
+    <!-- TOP BAR -->
+    <header class="topbar">
+        <div>
+            <h1>SpendWise</h1>
+            <p>Student Expense Tracker</p>
+        </div>
+
+        <button id="themeBtn" type="button" aria-label="Toggle theme">
+            🌙
+        </button>
+    </header>
+
+
+    <main class="container">
+
+        <!-- DASHBOARD SUMMARY -->
+        <section class="summary-grid">
+
+            <div class="card">
+                <span>💰 Total Spent</span>
+                <h2 id="total">₹0</h2>
+            </div>
+
+            <div class="card">
+                <span>🧾 Transactions</span>
+                <h2 id="count">0</h2>
+            </div>
+
+            <div class="card">
+                <span>📊 Average Expense</span>
+                <h2 id="average">₹0</h2>
+            </div>
+
+            <div class="card">
+                <span>📈 Highest Spending Month</span>
+                <h2 id="highestMonth">—</h2>
+                <small id="highestMonthAmount">₹0</small>
+            </div>
+
+        </section>
+
+
+        <!-- ADD EXPENSE -->
+        <section class="panel">
+
+            <div class="heading">
+                <h2>Add Expense</h2>
+                <p>Record your daily spending</p>
+            </div>
+
+            <form id="expenseForm">
+
+                <div class="form-group">
+                    <label for="title">Expense Title</label>
+
+                    <input
+                        type="text"
+                        id="title"
+                        placeholder="e.g. Lunch"
+                        required
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <label for="amount">Amount</label>
+
+                    <input
+                        type="number"
+                        id="amount"
+                        placeholder="e.g. 100"
+                        min="1"
+                        required
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <label for="category">Category</label>
+
+                    <select id="category" required>
+
+                        <option value="">
+                            Select Category
+                        </option>
+
+                        <option value="Food">Food</option>
+                        <option value="Travel">Travel</option>
+                        <option value="Shopping">Shopping</option>
+                        <option value="Education">Education</option>
+                        <option value="Entertainment">Entertainment</option>
+                        <option value="Bills">Bills</option>
+                        <option value="Other">Other</option>
+
+                    </select>
+                </div>
+
+
+                <button type="submit" class="primary">
+                    ➕ Add Expense
+                </button>
+
+            </form>
+
+        </section>
+
+
+        <!-- FINANCE -->
+        <section class="panel">
+
+            <div class="heading">
+                <h2>Monthly Finance</h2>
+                <p>Manage your income, budget and savings goal</p>
+            </div>
+
+            <!-- EXPENSE REMINDER -->
+<section class="panel">
+
+    <div class="heading">
+        <h2>⏰ Expense Reminder</h2>
+        <p>Set a reminder for your upcoming expenses</p>
+    </div>
+
+    <div class="finance-grid">
+
+        <div>
+            <label for="reminderTitle">Reminder</label>
+            <input
+                type="text"
+                id="reminderTitle"
+                placeholder="e.g. Pay electricity bill"
+            >
+        </div>
+
+        <div>
+            <label for="reminderDate">Date</label>
+            <input
+                type="date"
+                id="reminderDate"
+            >
+        </div>
+
+        <div>
+            <label for="reminderTime">Time</label>
+            <input
+                type="time"
+                id="reminderTime"
+            >
+        </div>
+
+    </div>
+
+    <button
+        id="setReminderBtn"
+        type="button"
+        class="primary"
+    >
+        ⏰ Set Reminder
+    </button>
+
+    <div id="reminderMessage" class="result-summary"></div>
+    <div id="reminderList" class="reminder-list"></div>
+</section>
+
+            <div class="finance-grid">
+
+                <div class="form-group">
+                    <label for="incomeInput">
+                        Monthly Income
+                    </label>
+
+                    <input
+                        type="number"
+                        id="incomeInput"
+                        placeholder="₹0"
+                        min="0"
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <label for="budgetInput">
+                        Monthly Budget
+                    </label>
+
+                    <input
+                        type="number"
+                        id="budgetInput"
+                        placeholder="₹0"
+                        min="0"
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <label for="goalInput">
+                        Savings Goal
+                    </label>
+
+                    <input
+                        type="number"
+                        id="goalInput"
+                        placeholder="₹0"
+                        min="0"
+                    >
+                </div>
+
+            </div>
+
+
+            <button
+                id="saveFinanceBtn"
+                type="button"
+                class="primary"
+            >
+                💾 Save Finance Settings
+            </button>
+
+
+            <div class="finance-summary">
+
+                <div>
+                    <span>Remaining Budget</span>
+                    <strong id="remainingBudget">₹0</strong>
+                </div>
+
+                <div>
+                    <span>Savings</span>
+                    <strong id="savings">₹0</strong>
+                </div>
+
+                <div>
+                    <span>Goal Progress</span>
+                    <strong id="goalProgress">0%</strong>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- RECENT EXPENSES -->
+        <section class="panel">
+
+            <div class="heading">
+                <h2>Recent Expenses</h2>
+                <p id="resultSummary">Your expense history</p>
+            </div>
+
+<div class="expense-filters">
+
+    <input
+        type="text"
+        id="searchInput"
+        placeholder="🔍 Search by title or category..."
+    >
+
+    <select id="monthFilter">
+        <option value="all">
+            All Months
+        </option>
+    </select>
+
+    <div class="date-filter">
+        <label for="fromDate">From</label>
+
+        <input
+            type="date"
+            id="fromDate"
+        >
+    </div>
+
+    <div class="date-filter">
+        <label for="toDate">To</label>
+
+        <input
+            type="date"
+            id="toDate"
+        >
+    </div>
+
+</div>
+
+
+<div class="filter-actions">
+
+    <button
+        id="applyDateFilterBtn"
+        type="button"
+        class="primary"
+    >
+        🔎 Apply Filters
+    </button>
+
+    <button
+        id="resetFiltersBtn"
+        type="button"
+        class="reset-btn"
+    >
+        🔄 Reset Filters
+    </button>
+
+</div>
+
+
+            <div class="expense-actions">
+
+                <button
+                    id="exportBtn"
+                    type="button"
+                >
+                    📥 Export CSV
+                </button>
+
+                <button
+    id="exportPdfBtn"
+    type="button"
+    class="primary"
+>
+    📄 Export PDF
+</button>
+
+                <button
+                    id="clearBtn"
+                    type="button"
+                    class="clear"
+                >
+                    Clear All
+                </button>
+
+            </div>
+
+
+            <div id="list" class="list"></div>
+
+        </section>
+
+
+        <!-- MONTHLY EXPENSES -->
+        <section class="panel">
+
+            <div class="heading">
+                <h2>Monthly Expenses</h2>
+                <p id="currentMonth"></p>
+            </div>
+
+            <div id="monthlyList"></div>
+
+        </section>
+
+
+        <!-- CATEGORY BREAKDOWN -->
+        <section class="panel">
+
+            <div class="heading">
+                <h2>Category Breakdown</h2>
+                <p>Understand where your money goes</p>
+            </div>
+
+            <div id="categoryList"></div>
+
+        </section>
+
+
+        <!-- DAILY SPENDING CHART -->
+        <section class="panel">
+
+            <div class="heading">
+                <h2>📊 Daily Spending</h2>
+                <p>See how much you spent on each day</p>
+            </div>
+
+            <canvas
+                id="expenseChart"
+                width="800"
+                height="350"
+            ></canvas>
+
+        </section>
+
+
+        <!-- MONTHLY SPENDING CHART -->
+        <section class="panel">
+
+            <div class="heading">
+                <h2>📈 Monthly Spending</h2>
+                <p>See your total spending month by month</p>
+            </div>
+
+
+            <div class="monthly-total-box">
+
+                <span>Current Month Spending</span>
+
+                <strong id="monthlyTotal">
+                    ₹0
+                </strong>
+
+            </div>
+
+
+            <canvas
+                id="monthlyChart"
+                width="800"
+                height="350"
+            ></canvas>
+
+
+            <div id="chartDetails" class="chart-details">
+
+                <h3>Expense Details</h3>
+
+                <p>
+                    Click on a bar to see expense details.
+                </p>
+
+            </div>
+
+        </section>
+
+        <!-- SMART ANALYTICS -->
+
+<section class="panel">
+
+    <div class="heading">
+        <h2>🧠 Smart Analytics</h2>
+        <p>Understand your spending patterns and financial habits</p>
+    </div>
+
+    <div class="analytics-stats">
+
+        <div class="analytics-card">
+            <span>🔥 Highest Expense</span>
+            <strong id="highestExpense">₹0</strong>
+            <small id="highestExpenseTitle">No data</small>
+        </div>
+
+        <div class="analytics-card">
+            <span>📉 Lowest Expense</span>
+            <strong id="lowestExpense">₹0</strong>
+            <small id="lowestExpenseTitle">No data</small>
+        </div>
+
+        <div class="analytics-card">
+            <span>📅 Average Daily Spending</span>
+            <strong id="averageDaily">₹0</strong>
+            <small>Based on recorded expenses</small>
+        </div>
+
+        <div class="analytics-card">
+            <span>🏷️ Top Category</span>
+            <strong id="topCategory">—</strong>
+            <small id="topCategoryAmount">₹0</small>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- CATEGORY CHART -->
+
+<section class="panel">
+
+    <div class="heading">
+        <h2>🍕 Category Spending</h2>
+        <p>Compare how much you spend in each category</p>
+    </div>
+
+    <canvas
+        id="categoryChart"
+        width="800"
+        height="350"
+    ></canvas>
+
+</section>
+
+
+<!-- YEARLY CHART -->
+
+<section class="panel">
+
+    <div class="heading">
+        <h2>📅 Yearly Spending</h2>
+        <p>Compare your spending across different years</p>
+    </div>
+
+    <canvas
+        id="yearlyChart"
+        width="800"
+        height="350"
+    ></canvas>
+
+</section>
+
+
+<!-- AUTOMATIC INSIGHTS -->
+
+<section class="panel">
+
+    <div class="heading">
+        <h2>💡 Spending Insights</h2>
+        <p>Automatic observations based on your expenses</p>
+    </div>
+
+    <div id="insightsList" class="insights-list"></div>
+
+</section>
+       
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer class="creator-footer">
+
+        <p>
+            SpendWise — Student Expense Tracker
+        </p>
+
+        <p>
+            Built by <strong>Sonam Kumari</strong>
+        </p>
+
+        <small>
+            BTech Computer Science Engineering Student
+        </small>
+
+    </footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+   <script src="script.js"></script>
+
+</body>
+</html>
